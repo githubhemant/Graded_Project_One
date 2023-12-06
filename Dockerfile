@@ -1,14 +1,12 @@
+# syntax=docker/dockerfile:1
 
 FROM python:3.6
 
-ENV PYTHONDONTWRITEBYTECODE 1
+WORKDIR /graded_project
 
-ENV PYTHONUNBUFFERED 1
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
 
-ADD . /code
+COPY . .
 
-WORKDIR /code
-
-RUN pip install -r requirements.txt
-
-CMD ["python", "hello_python.py"]
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
